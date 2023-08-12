@@ -21,6 +21,11 @@ namespace PetCafe.API.Data
 
         [Required]
         public EmployeeGender EmployeeGender { get; set; }
+
+        public Cafe Cafe { get; set; }
+        public Guid CafeId { get; set; }
+
+
     }
 
     public enum EmployeeGender

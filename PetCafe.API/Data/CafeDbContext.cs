@@ -10,5 +10,6 @@ namespace PetCafe.API.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Cafe> Cafes { get; set; }
     }
 }
