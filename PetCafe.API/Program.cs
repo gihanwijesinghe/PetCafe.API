@@ -14,6 +14,9 @@ builder.Services.AddDbContext<CafeDbContext>(item => item.UseSqlServer("string")
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<CafeMapper>();
+builder.Services.AddTransient<EmployeeMapper>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
