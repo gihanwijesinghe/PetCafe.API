@@ -16,5 +16,16 @@ namespace PetCafe.API.Helpers
                 EmployeesCount = c.Employees.Count(),
             });
         }
+
+        public Cafe CafeApiToDb(CafePost cafe)
+        {
+            return new Cafe
+            {
+                Id = Guid.NewGuid(),
+                Name = cafe.Name,
+                Description = cafe.Description,
+                Location = cafe.Location
+            };
+        }
     }
 }

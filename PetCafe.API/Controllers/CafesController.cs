@@ -93,16 +93,18 @@ namespace PetCafe.API.Controllers
         // POST: api/Cafes1
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Cafe>> PostCafe(Cafe cafe)
+        public async Task<ActionResult<Cafe>> PostCafe(CafePost cafe)
         {
             if (_context.Cafes == null)
             {
                 return Problem("Entity set 'CafeDbContext.Cafes'  is null.");
             }
-            _context.Cafes.Add(cafe);
+
+            var cafeDb = _mapper.CafeApiToDb(cafe);
+            _context.Cafes.Add(cafeDb);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCafe", new { id = cafe.Id }, cafe);
+            return CreatedAtAction("GetCafe", new { id = cafeDb.Id }, cafe);
         }
 
         // DELETE: api/Cafes1/5
