@@ -91,20 +91,40 @@ namespace PetCafe.API.Controllers
         // POST: api/Employees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        public async Task<ActionResult<Employee>> PostEmployee(EmployeePost employee)
         {
-          if (_context.Employees == null)
-          {
-              return Problem("Entity set 'CafeDbContext.Employees'  is null.");
-          }
-            _context.Employees.Add(employee);
+            if (_context.Employees == null)
+            {
+                return Problem("Entity set 'CafeDbContext.Employees'  is null.");
+            }
+
+            if (employee == null)
+            {
+                return BadRequest("Cannot find body");
+            }
+
+            var phone = employee.Phone.ToString();
+            if (phone.Length != 8 || !(phone[0] == '8' || phone[0] == '9'))
+            {
+                return BadRequest("Phone number is incorrect");
+            }
+
+            var randomString = RandomStringGenerator.RandomString(7);
+            var employeeIds = _context.Employees.Select(e => e.Id.Substring(2, 9));
+            while (employeeIds.Contains(randomString))
+            {
+                randomString = RandomStringGenerator.RandomString(7);
+            }
+
+            var employeeDb = _mapper.EmployeeApiToDb(employee, randomString);
+            _context.Employees.Add(employeeDb);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (EmployeeExists(employee.Id))
+                if (EmployeeExists(employeeDb.Id))
                 {
                     return Conflict();
                 }
@@ -114,7 +134,7 @@ namespace PetCafe.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);
+            return CreatedAtAction("GetEmployee", new { id = employeeDb.Id }, employee);
         }
 
         // DELETE: api/Employees/5

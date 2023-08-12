@@ -2,15 +2,16 @@
 
 namespace PetCafe.API.APIModels
 {
-    public class CafePost
+    public class EmployeeBase
     {
         [Required]
         public string Name { get; set; }
 
+        [EmailAddress]
         [Required]
-        public string Description { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        public string Location { get; set; }
+        public int Phone { get; set; }
     }
 }

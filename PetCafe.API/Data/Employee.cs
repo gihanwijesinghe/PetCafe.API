@@ -22,7 +22,7 @@ namespace PetCafe.API.Data
         [Required]
         public EmployeeGender EmployeeGender { get; set; }
 
-        public DateTime StartDate { get; set; } = DateTime.Now;
+        public DateTime StartDate { get; set; }
 
         public Cafe? Cafe { get; set; }
         public Guid? CafeId { get; set; }

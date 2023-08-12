@@ -17,5 +17,17 @@ namespace PetCafe.API.Helpers
                 Cafe = c.CafeId.HasValue ? c.Cafe.Name : ""
             });
         }
+
+        public Employee EmployeeApiToDb(EmployeePost employee, string id)
+        {
+            return new Employee
+            {
+                Id = "UI"+id,
+                Name = employee.Name,
+                Email = employee.Email,
+                Phone = employee.Phone,
+                CafeId = employee.CafeId
+            };
+        }
     }
 }
