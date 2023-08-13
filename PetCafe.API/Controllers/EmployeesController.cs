@@ -60,14 +60,26 @@ namespace PetCafe.API.Controllers
         // PUT: api/Employees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(string id, Employee employee)
+        public async Task<IActionResult> PutEmployee(string id, EmployeePut employee)
         {
             if (id != employee.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(employee).State = EntityState.Modified;
+            var employeeDb = await _context.Employees.SingleOrDefaultAsync(c => c.Id == id);
+
+            if (employeeDb == null)
+            {
+                return BadRequest("Cannot find employee for given id");
+            }
+
+            employeeDb.Name = employee.Name;
+            employeeDb.CafeId = employee.CafeId;
+            employeeDb.EmployeeGender = employee.Gender;
+            employeeDb.Phone = employee.Phone;
+            employeeDb.Email = employee.Email;
+            employeeDb.StartDate = employee.StartDate;
 
             try
             {
