@@ -62,14 +62,24 @@ namespace PetCafe.API.Controllers
         // PUT: api/Cafes1/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCafe(Guid id, Cafe cafe)
+        public async Task<IActionResult> PutCafe(Guid id, CafePut cafe)
         {
             if (id != cafe.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(cafe).State = EntityState.Modified;
+            var cafeDb = _context.Cafes.SingleOrDefault(c => c.Id == id);
+            if (cafeDb == null)
+            {
+                return BadRequest("Cannot find cafe for given id");
+            }
+
+            cafeDb.Name = cafe.Name;
+            cafeDb.Description = cafe.Description;
+            cafeDb.Location = cafe.Location;
+
+            //_context.Entry(cafe).State = EntityState.Modified;
 
             try
             {
