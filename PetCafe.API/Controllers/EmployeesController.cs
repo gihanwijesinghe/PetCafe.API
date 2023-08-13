@@ -116,7 +116,7 @@ namespace PetCafe.API.Controllers
                 randomString = RandomStringGenerator.RandomString(7);
             }
 
-            var employeeDb = _mapper.EmployeeApiToDb(employee, randomString);
+            Employee employeeDb = _mapper.EmployeeApiToDb(employee, randomString);
             _context.Employees.Add(employeeDb);
             try
             {
@@ -134,7 +134,7 @@ namespace PetCafe.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetEmployee", new { id = employeeDb.Id }, employee);
+            return CreatedAtAction("GetEmployee", new { id = employeeDb.Id }, new { id = employeeDb.Id});
         }
 
         // DELETE: api/Employees/5

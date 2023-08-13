@@ -26,7 +26,9 @@ namespace PetCafe.API.Helpers
                 Name = employee.Name,
                 Email = employee.Email,
                 Phone = employee.Phone,
-                CafeId = employee.CafeId
+                CafeId = employee.CafeId,
+                StartDate = employee.StartDate,
+                EmployeeGender = employee.Gender,
             };
         }
     }
