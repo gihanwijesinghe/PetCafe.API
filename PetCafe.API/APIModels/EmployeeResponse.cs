@@ -1,6 +1,6 @@
 ﻿namespace PetCafe.API.APIModels
 {
-    public class EmployeeResponse : EmployeeBase
+    public class EmployeeResponse : EmployeePost
     {
         public string Id { get; set; }
         public int DaysWorked { get; set; }

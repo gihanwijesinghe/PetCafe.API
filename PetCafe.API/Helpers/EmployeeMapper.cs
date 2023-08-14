@@ -14,7 +14,10 @@ namespace PetCafe.API.Helpers
                 Email = c.Email,
                 Phone = c.Phone,
                 DaysWorked = (DateTime.Today.Date - c.StartDate.Date).Days+1,
-                Cafe = c.CafeId.HasValue ? c.Cafe.Name : ""
+                Cafe = c.CafeId.HasValue ? c.Cafe.Name : "",
+                Gender = c.EmployeeGender,
+                StartDate = c.StartDate,
+                CafeId = c.CafeId
             });
         }
 
